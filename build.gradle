@@ -1,6 +1,8 @@
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 version = '1.0'
 
 repositories {
@@ -14,7 +16,17 @@ dependencies {
     compile('com.fasterxml.jackson.core:jackson-core:2.6.4')
     compile('com.fasterxml.jackson.core:jackson-databind:2.6.4')
 
-    testCompile('junit:junit:4.12')
-    testCompile('org.mockito:mockito-all:1.10.19')
     testCompile('org.hamcrest:hamcrest-all:1.3')
+    testCompile('org.mockito:mockito-all:1.10.19') {
+        exclude group: "org.hamcrest"
+    }
+    testCompile("junit:junit:4.12") {
+        exclude group: "org.hamcrest"
+    }
+}
+
+test {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
 }

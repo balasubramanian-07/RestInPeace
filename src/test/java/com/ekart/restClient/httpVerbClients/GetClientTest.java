@@ -36,7 +36,8 @@ public final class GetClientTest {
 
     private final String url = "http://example.com";
     private final Class<String> responseType = String.class;
-    private final TypeReference<String> typeReferenceResponseType = new TypeReference<String>() {};
+    private final TypeReference<String> typeReferenceResponseType = new TypeReference<String>() {
+    };
     private final String responseFromUrl = "URL hit successfully";
     private final QueryParams queryParams;
     private final Headers headers;
@@ -90,8 +91,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url));
+        validateRequest(captor.getValue(), url, Headers.empty());
     }
 
     @Test
@@ -103,8 +103,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url + "?q1=v1&q2=v2"));
+        validateRequest(captor.getValue(), url + "?q1=v1&q2=v2", Headers.empty());
     }
 
     @Test
@@ -116,9 +115,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url));
-        validateHeaders(headers, request.getAllHeaders());
+        validateRequest(captor.getValue(), url, headers);
     }
 
     @Test
@@ -130,9 +127,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url + "?q1=v1&q2=v2"));
-        validateHeaders(headers, request.getAllHeaders());
+        validateRequest(captor.getValue(), url + "?q1=v1&q2=v2", headers);
     }
 
     @Test
@@ -144,8 +139,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url));
+        validateRequest(captor.getValue(), url, Headers.empty());
     }
 
     @Test
@@ -157,8 +151,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url + "?q1=v1&q2=v2"));
+        validateRequest(captor.getValue(), url + "?q1=v1&q2=v2", Headers.empty());
     }
 
     @Test
@@ -170,9 +163,7 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url));
-        validateHeaders(headers, request.getAllHeaders());
+        validateRequest(captor.getValue(), url, headers);
     }
 
     @Test
@@ -184,9 +175,13 @@ public final class GetClientTest {
 
         verify(httpClient, times(1)).execute(captor.capture());
         assertThat(result, is(responseFromUrl));
-        HttpGet request = captor.getValue();
-        assertThat(request.getURI().toString(), is(url + "?q1=v1&q2=v2"));
-        validateHeaders(headers, request.getAllHeaders());
+        validateRequest(captor.getValue(), url + "?q1=v1&q2=v2", headers);
+    }
+
+    private void validateRequest(HttpGet request, String url, Headers expectedHeaders) {
+
+        assertThat(request.getURI().toString(), is(url));
+        validateHeaders(expectedHeaders, request.getAllHeaders());
     }
 
     private void validateHeaders(Headers expectedHeaders, Header[] receivedHeaders) {
