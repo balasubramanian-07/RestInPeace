@@ -118,10 +118,8 @@ public class PostClient implements HttpVerbClient {
         setJsonHeaders(request);
         setCustomHeaders(request, headers);
 
-        try (CloseableHttpClient client = getHttpClient()) {
 
-            return client.execute(request);
-        }
+            return getHttpClient().execute(request);
     }
 
     private CloseableHttpClient getHttpClient() {

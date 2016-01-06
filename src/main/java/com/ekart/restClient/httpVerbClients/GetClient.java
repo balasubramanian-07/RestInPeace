@@ -10,7 +10,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -91,10 +90,7 @@ public final class GetClient implements HttpVerbClient {
         setJsonHeader(request);
         setCustomHeaders(request, headers);
 
-        try (CloseableHttpClient client = getHttpClient()) {
-
-            return client.execute(request);
-        }
+        return getHttpClient().execute(request);
     }
 
     private void setJsonHeader(HttpGet request) {
