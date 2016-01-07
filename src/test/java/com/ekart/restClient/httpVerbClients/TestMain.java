@@ -1,8 +1,10 @@
 package com.ekart.restClient.httpVerbClients;
 
 import com.ekart.restClient.RestClient;
+import com.ekart.restClient.entities.RestResponse;
 import com.ekart.restClient.httpVerbClients.testEntities.SimpleRequestDto;
 import com.ekart.restClient.httpVerbClients.testEntities.SimpleResponseDto;
+import org.apache.http.HttpStatus;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -25,11 +27,13 @@ public class TestMain {
 
         SimpleRequestDto simpleRequestDto = new SimpleRequestDto(1, "foo", "bar");
 
-        SimpleResponseDto result = RestClient.GET.execute(GET_URL, SimpleResponseDto.class);
+        RestResponse<SimpleResponseDto> restResponse = RestClient.GET.execute(GET_URL, SimpleResponseDto.class);
 
-        assertThat(result.getId(), is(simpleRequestDto.getId()));
-        assertThat(result.getKey(), is(simpleRequestDto.getKey()));
-        assertThat(result.getValue(), is(simpleRequestDto.getValue()));
+        assertThat(restResponse.getStatusCode(), is(HttpStatus.SC_OK));
+        SimpleResponseDto responseDto = restResponse.getResponseBody();
+        assertThat(responseDto.getId(), is(simpleRequestDto.getId()));
+        assertThat(responseDto.getKey(), is(simpleRequestDto.getKey()));
+        assertThat(responseDto.getValue(), is(simpleRequestDto.getValue()));
     }
 
     @Test
@@ -38,10 +42,12 @@ public class TestMain {
 
         SimpleRequestDto simpleRequestDto = new SimpleRequestDto(1, "foo", "bar");
 
-        SimpleResponseDto result = RestClient.POST.execute(POST_URL, simpleRequestDto, SimpleResponseDto.class);
+        RestResponse<SimpleResponseDto> restResponse = RestClient.POST.execute(POST_URL, simpleRequestDto, SimpleResponseDto.class);
 
-        assertThat(result.getId(), is(simpleRequestDto.getId()));
-        assertThat(result.getKey(), is(simpleRequestDto.getKey()));
-        assertThat(result.getValue(), is(simpleRequestDto.getValue()));
+        assertThat(restResponse.getStatusCode(), is(HttpStatus.SC_OK));
+        SimpleResponseDto responseDto = restResponse.getResponseBody();
+        assertThat(responseDto.getId(), is(simpleRequestDto.getId()));
+        assertThat(responseDto.getKey(), is(simpleRequestDto.getKey()));
+        assertThat(responseDto.getValue(), is(simpleRequestDto.getValue()));
     }
 }
