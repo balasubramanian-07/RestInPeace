@@ -4,7 +4,7 @@ import com.ekart.restClient.entities.Headers;
 import com.ekart.restClient.entities.QueryParams;
 import com.ekart.restClient.entities.RestResponse;
 import com.ekart.restClient.factories.HttpClientFactory;
-import com.ekart.restClient.utilities.UriUtil;
+import com.ekart.restClient.utilities.UriUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.Header;
@@ -21,22 +21,25 @@ public class GetGateway implements HttpGateway {
 
     private final HttpClientFactory httpClientFactory;
     private final ObjectMapper objectMapper;
+    private final UriUtils uriUtils;
 
     public GetGateway() {
 
         httpClientFactory = new HttpClientFactory();
         objectMapper = new ObjectMapper();
+        uriUtils = new UriUtils();
     }
 
-    GetGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper) {
+    GetGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper, UriUtils uriUtils) {
         this.httpClientFactory = httpClientFactory;
         this.objectMapper = objectMapper;
+        this.uriUtils = uriUtils;
     }
 
     // TODO: Error handling
     public <T> RestResponse<T> executeGet(String url, QueryParams queryParams, Headers headers, Class<T> responseType) throws URISyntaxException, IOException {
 
-        String urlWithQueryParams = UriUtil.urlWithQueryParams(url, queryParams);
+        String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
         HttpGet request = new HttpGet(urlWithQueryParams);
         setJsonHeader(request);
         setCustomHeaders(request, headers);
@@ -51,7 +54,7 @@ public class GetGateway implements HttpGateway {
 
     public <T> RestResponse<T> executeGet(String url, QueryParams queryParams, Headers headers, TypeReference<T> responseType) throws URISyntaxException, IOException {
 
-        String urlWithQueryParams = UriUtil.urlWithQueryParams(url, queryParams);
+        String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
         HttpGet request = new HttpGet(urlWithQueryParams);
         setJsonHeader(request);
         setCustomHeaders(request, headers);

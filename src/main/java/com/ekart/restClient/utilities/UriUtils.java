@@ -5,9 +5,9 @@ import org.apache.http.client.utils.URIBuilder;
 
 import java.net.URISyntaxException;
 
-public final class UriUtil {
+public class UriUtils {
 
-    public static String urlWithQueryParams(String url, QueryParams queryParams) throws URISyntaxException {
+    public String urlWithQueryParams(String url, QueryParams queryParams) throws URISyntaxException {
 
         URIBuilder builder = new URIBuilder(url);
         queryParams.stream()

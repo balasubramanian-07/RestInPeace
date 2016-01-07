@@ -4,7 +4,7 @@ import com.ekart.restClient.entities.Headers;
 import com.ekart.restClient.entities.QueryParams;
 import com.ekart.restClient.entities.RestResponse;
 import com.ekart.restClient.factories.HttpClientFactory;
-import com.ekart.restClient.utilities.UriUtil;
+import com.ekart.restClient.utilities.UriUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.Header;
@@ -22,22 +22,25 @@ public class PostGateway implements HttpGateway {
 
     private final HttpClientFactory httpClientFactory;
     private final ObjectMapper objectMapper;
+    private final UriUtils uriUtils;
 
     public PostGateway() {
 
         this.httpClientFactory = new HttpClientFactory();
         this.objectMapper = new ObjectMapper();
+        this.uriUtils = new UriUtils();
     }
 
-    PostGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper) {
+    PostGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper, UriUtils uriUtils) {
 
         this.httpClientFactory = httpClientFactory;
         this.objectMapper = objectMapper;
+        this.uriUtils = uriUtils;
     }
 
     public <T> RestResponse executePost(String url, T requestBody, QueryParams queryParams, Headers headers) throws URISyntaxException, IOException {
 
-        String urlWithQueryParams = UriUtil.urlWithQueryParams(url, queryParams);
+        String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 
         HttpPost request = new HttpPost(urlWithQueryParams);
         request.setEntity(new StringEntity(objectMapper.writeValueAsString(requestBody)));
@@ -54,7 +57,7 @@ public class PostGateway implements HttpGateway {
 
     public <T, R> RestResponse<R> executePost(String url, T requestBody, QueryParams queryParams, Headers headers, Class<R> responseType) throws IOException, URISyntaxException {
 
-        String urlWithQueryParams = UriUtil.urlWithQueryParams(url, queryParams);
+        String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 
         HttpPost request = new HttpPost(urlWithQueryParams);
         request.setEntity(new StringEntity(objectMapper.writeValueAsString(requestBody)));
@@ -71,7 +74,7 @@ public class PostGateway implements HttpGateway {
 
     public <T, R> RestResponse<R> executePost(String url, T requestBody, QueryParams queryParams, Headers headers, TypeReference<R> responseType) throws IOException, URISyntaxException {
 
-        String urlWithQueryParams = UriUtil.urlWithQueryParams(url, queryParams);
+        String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 
         HttpPost request = new HttpPost(urlWithQueryParams);
         request.setEntity(new StringEntity(objectMapper.writeValueAsString(requestBody)));
