@@ -37,7 +37,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostGatewayTest {
+public final class PostGatewayTest {
 
     private final String url = "http://example.com:8080";
     private final String uriWithQueryParams = url + "?queryParams";

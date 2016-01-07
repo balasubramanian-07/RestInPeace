@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostClientTest {
+public final class PostClientTest {
 
     private final String url = "http://example.com";
     private final String requestBody = "This is a sample request";

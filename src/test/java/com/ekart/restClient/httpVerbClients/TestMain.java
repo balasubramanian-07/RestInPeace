@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class TestMain {
+public final class TestMain {
 
     // These urls pertain to a local server that I had started before running these tests
     // So, these tests are ignored by default
