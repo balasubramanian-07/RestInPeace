@@ -17,7 +17,7 @@ import static org.hamcrest.core.Is.is;
 public class TestMain {
 
     // These urls pertain to a local server that I had started before running these tests
-    // So, the tests are ignored by default
+    // So, these tests are ignored by default
     private static final String GET_URL = "http://127.0.0.1:8080/api/dummy/get-api";
     private static final String POST_URL = "http://127.0.0.1:8080/api/dummy/post-api";
 

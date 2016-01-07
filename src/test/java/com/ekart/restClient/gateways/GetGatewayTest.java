@@ -13,10 +13,10 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,12 +37,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostGatewayTest {
+public final class GetGatewayTest {
 
     private final String url = "http://example.com:8080";
     private final String uriWithQueryParams = url + "?queryParams";
-    private final String requestBody = "request-body";
-    private final String requestBodyAsString = "request-body-as-string";
     private final String responseBody = "response-body";
     private final String responseBodyForTypeReference = "response-body-for-type-reference";
     private final int statusCode = 200;
@@ -52,7 +50,7 @@ public class PostGatewayTest {
     private final Headers requestHeaders;
     private final Header[] responseHeaders;
 
-    private PostGateway postGateway;
+    private GetGateway getGateway;
 
     @Mock
     private HttpClientFactory httpClientFactory;
@@ -71,7 +69,7 @@ public class PostGatewayTest {
     @Mock
     private InputStream content;
 
-    public PostGatewayTest() {
+    public GetGatewayTest() {
 
         queryParams = new QueryParams();
         queryParams.add("q1", "v1");
@@ -87,12 +85,11 @@ public class PostGatewayTest {
     }
 
     @Before
-    public void setup() throws URISyntaxException, IOException {
+    public void setUp() throws Exception {
 
-        postGateway = new PostGateway(httpClientFactory, objectMapper, uriUtils);
+        getGateway = new GetGateway(httpClientFactory, objectMapper, uriUtils);
 
         when(uriUtils.urlWithQueryParams(url, queryParams)).thenReturn(uriWithQueryParams);
-        when(objectMapper.writeValueAsString(requestBody)).thenReturn(requestBodyAsString);
         when(httpClientFactory.get()).thenReturn(httpClient);
         when(httpClient.execute(any(HttpPost.class))).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(statusLine);
@@ -105,23 +102,11 @@ public class PostGatewayTest {
     }
 
     @Test
-    public void shouldExecutePost() throws IOException, URISyntaxException {
+    public void shouldExecuteGetWithResponseType() throws IOException, URISyntaxException {
 
-        ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
+        ArgumentCaptor<HttpGet> captor = ArgumentCaptor.forClass(HttpGet.class);
 
-        RestResponse restResponse = postGateway.executePost(url, requestBody, queryParams, requestHeaders);
-
-        verify(httpClient, times(1)).execute(captor.capture());
-        validateRequest(captor.getValue());
-        validateResponse(restResponse);
-    }
-
-    @Test
-    public void shouldExecutePostWithResponseType() throws IOException, URISyntaxException {
-
-        ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
-
-        RestResponse<String> restResponse = postGateway.executePost(url, requestBody, queryParams, requestHeaders, responseType);
+        RestResponse<String> restResponse = getGateway.executeGet(url, queryParams, requestHeaders, responseType);
 
         verify(httpClient, times(1)).execute(captor.capture());
         validateRequest(captor.getValue());
@@ -129,28 +114,21 @@ public class PostGatewayTest {
     }
 
     @Test
-    public void shouldExecutePostWithTypeReferenceResponseType() throws IOException, URISyntaxException {
+    public void shouldExecuteGetWithTypeReferenceResponseType() throws IOException, URISyntaxException {
 
-        ArgumentCaptor<HttpPost> captor = ArgumentCaptor.forClass(HttpPost.class);
+        ArgumentCaptor<HttpGet> captor = ArgumentCaptor.forClass(HttpGet.class);
 
-        RestResponse<String> restResponse = postGateway.executePost(url, requestBody, queryParams, requestHeaders, typeReferenceResponseType);
+        RestResponse<String> restResponse = getGateway.executeGet(url, queryParams, requestHeaders, typeReferenceResponseType);
 
         verify(httpClient, times(1)).execute(captor.capture());
         validateRequest(captor.getValue());
         validateResponseWithBody(restResponse, responseBodyForTypeReference);
     }
 
-    private void validateRequest(HttpPost request) throws IOException {
+    private void validateRequest(HttpGet request) throws IOException {
 
         assertThat(request.getURI().toString(), is(uriWithQueryParams));
         validateHeaders(requestHeaders, request.getAllHeaders());
-        assertThat(EntityUtils.toString(request.getEntity()), is(requestBodyAsString));
-    }
-
-    private void validateResponse(RestResponse restResponse) {
-
-        assertThat(restResponse.getStatusCode(), is(statusCode));
-        validateHeaders(responseHeaders, restResponse.getHeaders());
     }
 
     private void validateResponseWithBody(RestResponse<String> restResponse, String responseBody) {
@@ -162,9 +140,8 @@ public class PostGatewayTest {
 
     private void validateHeaders(Headers expectedHeaders, Header[] receivedHeaders) {
 
-        // TODO: This can be moved outside
+        //TODO: This can be moved outside
         expectedHeaders.add("Accept", "application/json");
-        expectedHeaders.add("Content-type", "application/json");
 
         Map<String, String> expectedHeadersMap = expectedHeaders.stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
