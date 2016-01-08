@@ -1,4 +1,4 @@
 package com.ekart.restClient.httpClients;
 
-public interface HttpVerbClient {
+public interface HttpClient {
 }

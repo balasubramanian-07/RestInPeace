@@ -10,7 +10,7 @@ import com.google.common.annotations.VisibleForTesting;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public final class PostClient implements HttpVerbClient {
+public final class PostClient implements HttpClient {
 
     private final PostGateway gateway;
 
