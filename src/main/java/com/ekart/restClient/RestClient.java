@@ -1,8 +1,8 @@
 package com.ekart.restClient;
 
 
-import com.ekart.restClient.httpVerbClients.GetClient;
-import com.ekart.restClient.httpVerbClients.PostClient;
+import com.ekart.restClient.httpClients.GetClient;
+import com.ekart.restClient.httpClients.PostClient;
 
 public final class RestClient {
 

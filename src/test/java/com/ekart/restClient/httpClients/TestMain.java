@@ -1,9 +1,9 @@
-package com.ekart.restClient.httpVerbClients;
+package com.ekart.restClient.httpClients;
 
 import com.ekart.restClient.RestClient;
 import com.ekart.restClient.entities.RestResponse;
-import com.ekart.restClient.httpVerbClients.testEntities.SimpleRequestDto;
-import com.ekart.restClient.httpVerbClients.testEntities.SimpleResponseDto;
+import com.ekart.restClient.httpClients.testEntities.SimpleRequestDto;
+import com.ekart.restClient.httpClients.testEntities.SimpleResponseDto;
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,8 +16,9 @@ import static org.hamcrest.core.Is.is;
 
 public final class TestMain {
 
-    // These urls pertain to a local server that I had started before running these tests
+    // These urls pertain to a local wms-template-server that I had started before running these tests
     // So, these tests are ignored by default
+    // This is more to demonstrate how to use it, will have to make it better
     private static final String GET_URL = "http://127.0.0.1:8080/api/dummy/get-api";
     private static final String POST_URL = "http://127.0.0.1:8080/api/dummy/post-api";
 

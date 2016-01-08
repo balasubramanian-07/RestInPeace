@@ -1,4 +1,4 @@
-package com.ekart.restClient.httpVerbClients;
+package com.ekart.restClient.httpClients;
 
 import com.ekart.restClient.entities.Headers;
 import com.ekart.restClient.entities.QueryParams;
