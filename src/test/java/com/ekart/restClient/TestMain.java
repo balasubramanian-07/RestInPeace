@@ -1,9 +1,8 @@
-package com.ekart.restClient.httpClients;
+package com.ekart.restClient;
 
-import com.ekart.restClient.RestClient;
 import com.ekart.restClient.entities.RestResponse;
-import com.ekart.restClient.httpClients.testEntities.SimpleRequestDto;
-import com.ekart.restClient.httpClients.testEntities.SimpleResponseDto;
+import com.ekart.restClient.testEntities.SimpleRequestDto;
+import com.ekart.restClient.testEntities.SimpleResponseDto;
 import com.google.common.collect.Maps;
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
@@ -19,7 +18,7 @@ public final class TestMain {
 
     // These urls pertain to a local wms-template-server that I had started before running these tests
     // So, these tests are ignored by default
-    // This is more to demonstrate how to use it, will have to make it better
+    // This is more to demonstrate how to use it, will make it better
     private static final String GET_URL = "http://127.0.0.1:8080/api/dummy/get-api";
     private static final String POST_URL = "http://127.0.0.1:8080/api/dummy/post-api";
 

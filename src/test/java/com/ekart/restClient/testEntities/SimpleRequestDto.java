@@ -1,4 +1,4 @@
-package com.ekart.restClient.httpClients.testEntities;
+package com.ekart.restClient.testEntities;
 
 import java.io.Serializable;
 
