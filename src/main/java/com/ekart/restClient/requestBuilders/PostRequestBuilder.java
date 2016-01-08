@@ -59,7 +59,7 @@ public class PostRequestBuilder {
         return gateway.executePost(url, requestBody, queryParams, headers, responseType);
     }
 
-    public RestResponse execute(Object requestBody) throws IOException, URISyntaxException {
+    public RestResponse execute() throws IOException, URISyntaxException {
 
         PostGateway gateway = new PostGateway();
 
