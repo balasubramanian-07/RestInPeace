@@ -38,7 +38,7 @@ public class PostGateway implements HttpGateway {
         this.uriUtils = uriUtils;
     }
 
-    public <T> RestResponse executePost(String url, T requestBody, QueryParams queryParams, Headers headers) throws URISyntaxException, IOException {
+    public RestResponse executePost(String url, Object requestBody, QueryParams queryParams, Headers headers) throws URISyntaxException, IOException {
 
         String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 
@@ -55,7 +55,7 @@ public class PostGateway implements HttpGateway {
         }
     }
 
-    public <T, R> RestResponse<R> executePost(String url, T requestBody, QueryParams queryParams, Headers headers, Class<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> executePost(String url, Object requestBody, QueryParams queryParams, Headers headers, Class<T> responseType) throws IOException, URISyntaxException {
 
         String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 
@@ -72,7 +72,7 @@ public class PostGateway implements HttpGateway {
         }
     }
 
-    public <T, R> RestResponse<R> executePost(String url, T requestBody, QueryParams queryParams, Headers headers, TypeReference<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> executePost(String url, Object requestBody, QueryParams queryParams, Headers headers, TypeReference<T> responseType) throws IOException, URISyntaxException {
 
         String urlWithQueryParams = uriUtils.urlWithQueryParams(url, queryParams);
 

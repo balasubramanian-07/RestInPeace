@@ -1,5 +1,7 @@
 package com.ekart.restClient.entities;
 
+import com.google.common.collect.Maps;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -17,6 +19,11 @@ public final class QueryParams {
     public QueryParams() {
 
         queryParamsMap = new HashMap<>();
+    }
+
+    public QueryParams(Map<String, String> queryParamsMap) {
+
+        this.queryParamsMap = Maps.newHashMap(queryParamsMap);
     }
 
     public void add(String key, String value) {

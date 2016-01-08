@@ -1,5 +1,7 @@
 package com.ekart.restClient.entities;
 
+import com.google.common.collect.Maps;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -17,6 +19,11 @@ public final class Headers {
     public Headers() {
 
         headerMap = new HashMap<>();
+    }
+
+    public Headers(Map<String, String> headerMap) {
+
+        this.headerMap = Maps.newHashMap(headerMap);
     }
 
     public void add(String key, String value) {

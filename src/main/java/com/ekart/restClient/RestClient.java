@@ -1,17 +1,18 @@
 package com.ekart.restClient;
 
 
-import com.ekart.restClient.httpClients.GetClient;
-import com.ekart.restClient.httpClients.PostClient;
+import com.ekart.restClient.requestBuilders.GetRequestBuilder;
+import com.ekart.restClient.requestBuilders.PostRequestBuilder;
 
 public final class RestClient {
 
-    public static final GetClient GET;
-    public static final PostClient POST;
+    public GetRequestBuilder get() {
 
-    static {
+        return new GetRequestBuilder();
+    }
 
-        GET = new GetClient();
-        POST = new PostClient();
+    public PostRequestBuilder post() {
+
+        return new PostRequestBuilder();
     }
 }

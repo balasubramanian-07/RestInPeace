@@ -25,62 +25,62 @@ public final class PostClient implements HttpClient {
         this.gateway = gateway;
     }
 
-    public <T> RestResponse execute(String url, T requestBody) throws IOException, URISyntaxException {
+    public RestResponse execute(String url, Object requestBody) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), Headers.empty());
     }
 
-    public <T> RestResponse execute(String url, T requestBody, QueryParams queryParams) throws IOException, URISyntaxException {
+    public RestResponse execute(String url, Object requestBody, QueryParams queryParams) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, Headers.empty());
     }
 
-    public <T> RestResponse execute(String url, T requestBody, Headers headers) throws IOException, URISyntaxException {
+    public RestResponse execute(String url, Object requestBody, Headers headers) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), headers);
     }
 
-    public <T> RestResponse execute(String url, T requestBody, QueryParams queryParams, Headers headers) throws IOException, URISyntaxException {
+    public RestResponse execute(String url, Object requestBody, QueryParams queryParams, Headers headers) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, headers);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, Class<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, Class<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), Headers.empty(), responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, QueryParams queryParams, Class<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, QueryParams queryParams, Class<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, Headers.empty(), responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, Headers headers, Class<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, Headers headers, Class<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), headers, responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, QueryParams queryParams, Headers headers, Class<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, QueryParams queryParams, Headers headers, Class<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, headers, responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, TypeReference<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, TypeReference<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), Headers.empty(), responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, QueryParams queryParams, TypeReference<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, QueryParams queryParams, TypeReference<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, Headers.empty(), responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, Headers headers, TypeReference<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, Headers headers, TypeReference<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, QueryParams.empty(), headers, responseType);
     }
 
-    public <T, R> RestResponse<R> execute(String url, T requestBody, QueryParams queryParams, Headers headers, TypeReference<R> responseType) throws IOException, URISyntaxException {
+    public <T> RestResponse<T> execute(String url, Object requestBody, QueryParams queryParams, Headers headers, TypeReference<T> responseType) throws IOException, URISyntaxException {
 
         return gateway.executePost(url, requestBody, queryParams, headers, responseType);
     }

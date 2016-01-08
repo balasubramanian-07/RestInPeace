@@ -4,6 +4,7 @@ import com.ekart.restClient.RestClient;
 import com.ekart.restClient.entities.RestResponse;
 import com.ekart.restClient.httpClients.testEntities.SimpleRequestDto;
 import com.ekart.restClient.httpClients.testEntities.SimpleResponseDto;
+import com.google.common.collect.Maps;
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,11 +25,16 @@ public final class TestMain {
 
     @Test
     @Ignore
-    public void testGetRequest() throws IOException, URISyntaxException {
+    public void testFluentGetRequest() throws IOException, URISyntaxException {
 
         SimpleRequestDto simpleRequestDto = new SimpleRequestDto(1, "foo", "bar");
 
-        RestResponse<SimpleResponseDto> restResponse = RestClient.GET.execute(GET_URL, SimpleResponseDto.class);
+        RestResponse<SimpleResponseDto> restResponse = new RestClient()
+                .get()
+                .withUrl(GET_URL)
+                .withQueryParams(Maps.newHashMap())
+                .withHeaders(Maps.newHashMap())
+                .execute(SimpleResponseDto.class);
 
         assertThat(restResponse.getStatusCode(), is(HttpStatus.SC_OK));
         SimpleResponseDto responseDto = restResponse.getResponseBody();
@@ -39,11 +45,17 @@ public final class TestMain {
 
     @Test
     @Ignore
-    public void testPostRequest() throws IOException, URISyntaxException {
+    public void testFluentPostRequest() throws IOException, URISyntaxException {
 
         SimpleRequestDto simpleRequestDto = new SimpleRequestDto(1, "foo", "bar");
 
-        RestResponse<SimpleResponseDto> restResponse = RestClient.POST.execute(POST_URL, simpleRequestDto, SimpleResponseDto.class);
+        RestResponse<SimpleResponseDto> restResponse = new RestClient()
+                .post()
+                .withUrl(POST_URL)
+                .withQueryParams(Maps.newHashMap())
+                .withHeaders(Maps.newHashMap())
+                .withRequestBody(simpleRequestDto)
+                .execute(SimpleResponseDto.class);
 
         assertThat(restResponse.getStatusCode(), is(HttpStatus.SC_OK));
         SimpleResponseDto responseDto = restResponse.getResponseBody();
