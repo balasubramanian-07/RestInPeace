@@ -18,24 +18,28 @@ public class GetRequestBuilder {
     public GetRequestBuilder withUrl(String url) {
 
         this.url = url;
+
         return this;
     }
 
     public GetRequestBuilder withQueryParams(Map<String, String> queryParams) {
 
         this.queryParams = new QueryParams(queryParams);
+
         return this;
     }
 
     public GetRequestBuilder withHeaders(Map<String, String> headers) {
 
         this.headers = new Headers(headers);
+
         return this;
     }
 
     public <T> RestResponse<T> execute(Class<T> responseType) throws IOException, URISyntaxException {
 
         GetClient getClient = new GetClient();
+        
         return getClient.execute(url, queryParams, headers, responseType);
     }
 }

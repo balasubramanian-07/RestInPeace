@@ -19,6 +19,7 @@ public class PostRequestBuilder {
     public PostRequestBuilder withUrl(String url) {
 
         this.url = url;
+
         return this;
     }
 
