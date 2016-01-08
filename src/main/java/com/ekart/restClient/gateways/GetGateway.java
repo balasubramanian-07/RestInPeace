@@ -31,6 +31,7 @@ public class GetGateway implements HttpGateway {
     }
 
     GetGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper, UriUtils uriUtils) {
+
         this.httpClientFactory = httpClientFactory;
         this.objectMapper = objectMapper;
         this.uriUtils = uriUtils;
