@@ -3,7 +3,8 @@ package com.ekart.restClient.requestBuilders;
 import com.ekart.restClient.entities.Headers;
 import com.ekart.restClient.entities.QueryParams;
 import com.ekart.restClient.entities.RestResponse;
-import com.ekart.restClient.httpClients.GetClient;
+import com.ekart.restClient.gateways.GetGateway;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,8 +13,8 @@ import java.util.Map;
 public class GetRequestBuilder {
 
     private String url;
-    private QueryParams queryParams;
-    private Headers headers;
+    private QueryParams queryParams = QueryParams.empty();
+    private Headers headers = Headers.empty();
 
     public GetRequestBuilder withUrl(String url) {
 
@@ -38,8 +39,15 @@ public class GetRequestBuilder {
 
     public <T> RestResponse<T> execute(Class<T> responseType) throws IOException, URISyntaxException {
 
-        GetClient getClient = new GetClient();
-        
-        return getClient.execute(url, queryParams, headers, responseType);
+        GetGateway gateway = new GetGateway();
+
+        return gateway.executeGet(url, queryParams, headers, responseType);
+    }
+
+    public <T> RestResponse<T> execute(TypeReference<T> responseType) throws IOException, URISyntaxException {
+
+        GetGateway gateway = new GetGateway();
+
+        return gateway.executeGet(url, queryParams, headers, responseType);
     }
 }
