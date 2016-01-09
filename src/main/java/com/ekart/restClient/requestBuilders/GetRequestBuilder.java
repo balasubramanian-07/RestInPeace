@@ -12,9 +12,17 @@ import java.util.Map;
 
 public class GetRequestBuilder {
 
+    private final GetGateway gateway;
+
     private String url;
     private QueryParams queryParams = QueryParams.empty();
     private Headers headers = Headers.empty();
+
+    public GetRequestBuilder(GetGateway gateway) {
+
+        this.gateway = gateway;
+    }
+
 
     public GetRequestBuilder withUrl(String url) {
 
@@ -39,14 +47,10 @@ public class GetRequestBuilder {
 
     public <T> RestResponse<T> execute(Class<T> responseType) throws IOException, URISyntaxException {
 
-        GetGateway gateway = new GetGateway();
-
         return gateway.executeGet(url, queryParams, headers, responseType);
     }
 
     public <T> RestResponse<T> execute(TypeReference<T> responseType) throws IOException, URISyntaxException {
-
-        GetGateway gateway = new GetGateway();
 
         return gateway.executeGet(url, queryParams, headers, responseType);
     }

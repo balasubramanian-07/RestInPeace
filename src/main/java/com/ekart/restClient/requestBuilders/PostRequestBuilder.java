@@ -12,10 +12,17 @@ import java.util.Map;
 
 public class PostRequestBuilder {
 
+    private final PostGateway gateway;
+
     private String url;
     private QueryParams queryParams = QueryParams.empty();
     private Headers headers = Headers.empty();
     private Object requestBody;
+
+    public PostRequestBuilder(PostGateway gateway) {
+
+        this.gateway = gateway;
+    }
 
     public PostRequestBuilder withUrl(String url) {
 
@@ -47,21 +54,15 @@ public class PostRequestBuilder {
 
     public <T> RestResponse<T> execute(Class<T> responseType) throws IOException, URISyntaxException {
 
-        PostGateway gateway = new PostGateway();
-
         return gateway.executePost(url, requestBody, queryParams, headers, responseType);
     }
 
     public <T> RestResponse<T> execute(TypeReference<T> responseType) throws IOException, URISyntaxException {
 
-        PostGateway gateway = new PostGateway();
-
         return gateway.executePost(url, requestBody, queryParams, headers, responseType);
     }
 
     public RestResponse execute() throws IOException, URISyntaxException {
-
-        PostGateway gateway = new PostGateway();
 
         return gateway.executePost(url, requestBody, queryParams, headers);
     }

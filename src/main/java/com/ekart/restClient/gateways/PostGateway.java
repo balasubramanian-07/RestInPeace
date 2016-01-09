@@ -31,7 +31,7 @@ public class PostGateway implements HttpGateway {
         this.uriUtils = new UriUtils();
     }
 
-    PostGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper, UriUtils uriUtils) {
+    public PostGateway(HttpClientFactory httpClientFactory, ObjectMapper objectMapper, UriUtils uriUtils) {
 
         this.httpClientFactory = httpClientFactory;
         this.objectMapper = objectMapper;
