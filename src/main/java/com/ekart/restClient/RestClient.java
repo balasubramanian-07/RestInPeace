@@ -19,11 +19,20 @@ public final class RestClient {
 
     public RestClient() {
 
-        httpClientFactory = new HttpClientFactory();
-        objectMapper = new ObjectMapper();
-        uriUtils = new UriUtils();
-        getGateway = new GetGateway(httpClientFactory, objectMapper, uriUtils);
-        postGateway = new PostGateway(httpClientFactory, objectMapper, uriUtils);
+        this.httpClientFactory = new HttpClientFactory();
+        this.objectMapper = new ObjectMapper();
+        this.uriUtils = new UriUtils();
+        this.getGateway = new GetGateway(httpClientFactory, objectMapper, uriUtils);
+        this.postGateway = new PostGateway(httpClientFactory, objectMapper, uriUtils);
+    }
+
+    public RestClient(ObjectMapper objectMapper) {
+
+        this.httpClientFactory = new HttpClientFactory();
+        this.objectMapper = objectMapper;
+        this.uriUtils = new UriUtils();
+        this.getGateway = new GetGateway(httpClientFactory, objectMapper, uriUtils);
+        this.postGateway = new PostGateway(httpClientFactory, objectMapper, uriUtils);
     }
 
     public GetRequestBuilder get() {
